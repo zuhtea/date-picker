@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Picker 💕</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffd6e0, #ffe9b5);
+      text-align: center;
+      padding: 30px;
+      color: #333;
+    }
+    h1 { font-size: 2rem; margin-bottom: 10px; }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      background: #fff;
+      border: 2px solid #ff6b81;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #ff6b81;
+      color: #fff;
+    }
+    .hidden { display: none; }
+    .card {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 500px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Hey love, pick our date this weekend 💖</h1>
+  <p>What are you in the mood for?</p>
+
+  <div id="choices">
+    <button class="btn" onclick="pickCategory('outdoorsy')">🌿 Outdoorsy</button>
+    <button class="btn" onclick="pickCategory('romantic')">💌 Fun & Romantic</button>
+    <button class="btn" onclick="pickCategory('chill')">☕ Chill & Cozy</button>
+  </div>
+
+  <div id="result" class="hidden card"></div>
+
+  <script>
+    function pickCategory(choice) {
+      let text = "";
+      if (choice === "outdoorsy") {
+        text = "🌿 Outdoorsy Date Plan 🌿<br><br>✨ Morning hike at MacRitchie Reservoir<br>🍲 Lunch at a halal café nearby<br>🍦 End with ice cream at Udders";
+      } else if (choice === "romantic") {
+        text = "💌 Fun & Romantic Date Plan 💌<br><br>✨ Stroll at Gardens by the Bay<br>🍽️ Dinner at a halal rooftop restaurant<br>🍰 Sweet ending with cake at Fluff Bakery";
+      } else if (choice === "chill") {
+        text = "☕ Chill & Cozy Date Plan ☕<br><br>✨ Board games or clay painting<br>🍔 Dinner at a halal burger joint<br>🍩 Donuts & hot chocolate for dessert";
+      }
+      document.getElementById("choices").classList.add("hidden");
+      document.getElementById("result").innerHTML = text + "<br><br><button class='btn' onclick='location.reload()'>🔄 Pick Again</button>";
+      document.getElementById("result").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
