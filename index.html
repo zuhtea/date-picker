@@ -1,77 +1,131 @@
 <!DOCTYPE html>
-h1{font-size:clamp(24px,5vw,34px); margin: 0 0 8px}
-p.lead{margin: 0 0 20px}
-.wrap{max-width:720px;margin:0 auto}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.card{background:#fff;border:2px solid var(--pink);border-radius:16px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
-.card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.12)}
-.emoji{font-size:28px}
-.hidden{display:none}
-.result{background:#fff;border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.btn{display:inline-block;margin:8px 6px;padding:12px 18px;border-radius:12px;border:2px solid var(--pink);background:#fff;font-weight:600;text-decoration:none;color:#333}
-.btn:hover{background:var(--pink);color:#fff}
-footer{opacity:.65;margin-top:24px;font-size:12px}
-</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Date Picker for Sufi & Izzati 💕</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdee9, #b5fffc);
+      text-align: center;
+      padding: 50px;
+      color: #333;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ff4b6e;
+    }
+    button {
+      background: #ff4b6e;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 12px;
+      margin: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff7c98;
+    }
+    .hidden {
+      display: none;
+    }
+    .result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      color: #444;
+    }
+    a.whatsapp {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      background: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 1em;
+    }
+    a.whatsapp:hover {
+      background: #20b954;
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-<h1>Hey love, pick our date this weekend 💕</h1>
-<p class="lead">What are you in the mood for?</p>
+  <div class="card">
+    <h1>Hey Sufi 💌</h1>
+    <p>Izzati wants to know… what kind of date are we having this weekend? ✨</p>
+    
+    <div id="choices">
+      <button onclick="pickCategory('outdoorsy')">🌿 Outdoorsy</button>
+      <button onclick="pickCategory('romantic')">💘 Fun & Romantic</button>
+      <button onclick="pickCategory('chill')">☕ Chill & Cozy</button>
+    </div>
 
+    <div id="subchoices" class="hidden"></div>
+    <div id="result" class="hidden"></div>
+  </div>
 
-<div id="choices" class="grid">
-<div class="card" onclick="pick('outdoorsy')"><div class="emoji">🌿</div><div>Outdoorsy</div></div>
-<div class="card" onclick="pick('romantic')"><div class="emoji">💌</div><div>Fun & Romantic</div></div>
-<div class="card" onclick="pick('chill')"><div class="emoji">☕</div><div>Chill & Cozy</div></div>
-</div>
+  <script>
+    const subchoicesDiv = document.getElementById('subchoices');
+    const resultDiv = document.getElementById('result');
+    const choicesDiv = document.getElementById('choices');
 
+    const plans = {
+      outdoorsy: [
+        "🌳 Hiking at MacRitchie, then makan halal Thai food nearby, ending with some ice cream 🍦",
+        "🚴‍♂️ Cycling around East Coast Park, halal satay by the beach, and a sunset stroll 🌅",
+        "🚣 Kayaking at Kallang, followed by prata at The Roti Prata House and sweet teh tarik ☕"
+      ],
+      romantic: [
+        "🎡 Gardens by the Bay light show, halal dinner at Satay by the Bay, and dessert waffles 🍨",
+        "🍝 Candlelight-style dinner at a halal Italian spot, then stargazing walk 🌌",
+        "🎬 A romantic movie, then halal supper (maybe burgers or ayam penyet?) 🍔"
+      ],
+      chill: [
+        "☕ Coffee date at Working Title, then painting pottery together 🎨",
+        "🍰 Dessert café hopping (cheesecake + waffles + boba run!)",
+        "🎮 Cozy day: board games at King and the Pawn, then ramen date 🍜"
+      ]
+    };
 
-<div id="result" class="hidden result"></div>
+    function pickCategory(category) {
+      subchoicesDiv.innerHTML = "<p>Choose one idea 💡</p>";
+      plans[category].forEach((plan, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = "Option " + (index + 1);
+        btn.onclick = () => showResult(plan);
+        subchoicesDiv.appendChild(btn);
+      });
+      subchoicesDiv.classList.remove("hidden");
+      resultDiv.classList.add("hidden");
+    }
 
-
-<footer>Made with ❤️ by Izzati</footer>
-</div>
-
-
-<script>
-function renderPlan(title, lines){
-const html = `
-<h2 style="margin:4px 0 10px">${title}</h2>
-<div style="line-height:1.7">${lines.map(l=>"• "+l).join("<br>")}</div>
-<div style="margin-top:14px">
-<a class="btn" href="#" onclick="location.reload()">🔄 Pick Again</a>
-</div>
-`;
-const res = document.getElementById('result');
-res.innerHTML = html;
-document.getElementById('choices').classList.add('hidden');
-res.classList.remove('hidden');
-}
-
-
-function pick(kind){
-if(kind==='outdoorsy'){
-renderPlan('🌿 Outdoorsy Date Plan', [
-'Morning walk at MacRitchie / Rail Corridor',
-'Halal lunch nearby (your fave spot!)',
-'Sweet ending: ice cream or waffles'
-]);
-}
-if(kind==='romantic'){
-renderPlan('💌 Fun & Romantic Date Plan', [
-'Golden‑hour stroll at Gardens by the Bay',
-'Halal dinner (rooftop or cosy cafe)',
-'Dessert date: cake & tea'
-]);
-}
-if(kind==='chill'){
-renderPlan('☕ Chill & Cozy Date Plan', [
-'Board games or clay painting session',
-'Halal burger or comfort food',
-'Donuts & hot chocolate nightcap'
-]);
-}
-}
-</script>
+    function showResult(plan) {
+      subchoicesDiv.classList.add("hidden");
+      resultDiv.innerHTML = `
+        <div class="result">
+          <p>Here’s your chosen date, Sufi & Izzati 💕</p>
+          <p><strong>${plan}</strong></p>
+          <a class="whatsapp" 
+             href="https://wa.me/?text=Hey%20Izzati%2C%20let%27s%20go%20for%20this%20date%20plan!%20${encodeURIComponent(plan)}" 
+             target="_blank">Confirm on WhatsApp 💬</a>
+        </div>
+      `;
+      resultDiv.classList.remove("hidden");
+    }
+  </script>
 </body>
 </html>
+
