@@ -1,216 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sufi & Izzati's Date Picker 💕</title>
-  <style>
-    body {
-      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
-      background: #fff0f5;
-      text-align: center;
-      padding: 30px;
-    }
-    h1 {
-      color: #e75480;
-      font-size: 2.5rem;
-    }
-    .choice-btn {
-      background: #ffb6c1;
-      border: none;
-      padding: 15px 25px;
-      margin: 15px;
-      font-size: 1.2rem;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .choice-btn:hover {
-      background: #ff85a2;
-    }
-    .date-option {
-      display: none;
-      margin-top: 20px;
-    }
-    .option-btn {
-      background: #ffe4e1;
-      border: none;
-      padding: 12px 20px;
-      margin: 8px;
-      font-size: 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .option-btn:hover {
-      background: #ffccd5;
-    }
-    #result {
-      margin-top: 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #444;
-    }
-    .telegram-btn {
-      background: #0088cc;
-      color: white;
-      border: none;
-      padding: 14px 25px;
-      font-size: 1.2rem;
-      border-radius: 15px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .pick-again {
-      background: #dcdcdc;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-    #final-page {
-      display: none;
-      margin-top: 40px;
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9999;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sufi & Izzati's Date Picker 💕</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0; text-align:center;
+    background: linear-gradient(135deg, #ffe4ec, #e4f0ff);
+    min-height: 100vh;
+  }
+  .container {
+    padding: 30px;
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    margin-top:50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  h1 { color: #e75480; }
+  button {
+    padding: 12px 25px; margin: 12px;
+    font-size: 1rem; border-radius: 12px;
+    border: none; cursor: pointer; transition:0.3s;
+  }
+  .choice-btn { background:#ffb6c1; color:white;}
+  .choice-btn:hover { background:#ff85a2;}
+  .option-btn { background:#ffe4e1; }
+  .option-btn:hover { background:#ffccd5;}
+  .telegram-btn { background:#0088cc; color:white; }
+  .telegram-btn:hover { background:#006699; }
+  .pick-again { background:#dcdcdc; }
+  .hidden { display:none; }
+  canvas { position:fixed; top:0; left:0; pointer-events:none; z-index:9999;}
+</style>
 </head>
 <body>
+
+<div id="main-page" class="container">
   <h1>💞 Sufi & Izzati's Date Picker 💞</h1>
   <p>Pick the kind of date you're in the mood for, sayang:</p>
 
-  <!-- Main Categories -->
   <button class="choice-btn" onclick="showOptions('outdoorsy')">🌿 Outdoorsy</button>
   <button class="choice-btn" onclick="showOptions('romantic')">💌 Fun & Romantic</button>
   <button class="choice-btn" onclick="showOptions('cozy')">☕ Chill & Cozy</button>
 
-  <!-- Options for Outdoorsy -->
-  <div id="outdoorsy" class="date-option">
-    <h2>Outdoorsy Ideas 🌿</h2>
-    <button class="option-btn" onclick="chooseDate('Cycling at East Coast Park + Satay by the Bay + Ice Cream 🍦')">Cycling + Satay + Ice Cream</button>
-    <button class="option-btn" onclick="chooseDate('Hiking at MacRitchie + Prata House Breakfast 🥞')">Hiking + Prata House</button>
-    <button class="option-btn" onclick="chooseDate('Kayaking at Kallang + Halal Japanese Food 🍜')">Kayaking + Japanese Food</button>
+  <div id="outdoorsy" class="hidden">
+    <h2>Outdoorsy 🌿</h2>
+    <button class="option-btn" onclick="chooseDate('Cycling at East Coast + Satay + Ice Cream 🍦')">Cycling + Satay + Ice Cream</button>
+    <button class="option-btn" onclick="chooseDate('Hiking at MacRitchie + Prata Breakfast 🥞')">Hiking + Prata Breakfast</button>
+    <button class="option-btn" onclick="chooseDate('Kayaking at Kallang + Halal Japanese 🍜')">Kayaking + Japanese Food</button>
   </div>
 
-  <!-- Options for Romantic -->
-  <div id="romantic" class="date-option">
-    <h2>Fun & Romantic Ideas 💌</h2>
-    <button class="option-btn" onclick="chooseDate('Gardens by the Bay + Dinner at Kampong Glam + Gelato 🌸')">Gardens + Dinner + Gelato</button>
-    <button class="option-btn" onclick="chooseDate('Sentosa Beach Picnic + Sunset Walk 🌅')">Sentosa Picnic + Sunset</button>
-    <button class="option-btn" onclick="chooseDate('Night Safari + Supper at Al Azhar 🌙')">Night Safari + Supper</button>
+  <div id="romantic" class="hidden">
+    <h2>Fun & Romantic 💌</h2>
+    <button class="option-btn" onclick="chooseDate('Gardens by the Bay + Dinner + Gelato 🌸')">Gardens + Dinner + Gelato</button>
+    <button class="option-btn" onclick="chooseDate('Sentosa Picnic + Sunset Walk 🌅')">Sentosa Picnic + Sunset Walk</button>
+    <button class="option-btn" onclick="chooseDate('Night Safari + Supper 🌙')">Night Safari + Supper</button>
   </div>
 
-  <!-- Options for Cozy -->
-  <div id="cozy" class="date-option">
-    <h2>Chill & Cozy Ideas ☕</h2>
+  <div id="cozy" class="hidden">
+    <h2>Chill & Cozy ☕</h2>
     <button class="option-btn" onclick="chooseDate('Board Game Café + Bubble Tea 🧋')">Board Game Café</button>
-    <button class="option-btn" onclick="chooseDate('Painting Pottery + Coffee Date ☕')">Pottery + Coffee</button>
-    <button class="option-btn" onclick="chooseDate('Netflix & Homecooked Dinner 🍲')">Netflix + Dinner</button>
+    <button class="option-btn" onclick="chooseDate('Pottery + Coffee ☕')">Pottery + Coffee</button>
+    <button class="option-btn" onclick="chooseDate('Netflix + Homecooked Dinner 🍲')">Netflix + Dinner</button>
   </div>
 
-  <!-- Result + Confirm -->
   <div id="result"></div>
-  <button id="telegramBtn" class="telegram-btn" style="display:none;" onclick="confirmTelegram()">Confirm on Telegram 💬</button>
-  <button id="pickAgainBtn" class="pick-again" style="display:none;" onclick="resetChoices()">Pick Again 🔄</button>
+  <button id="telegramBtn" class="telegram-btn hidden" onclick="confirmTelegram()">Confirm on Telegram 💬</button>
+  <button id="pickAgainBtn" class="pick-again hidden" onclick="pickAgainMain()">Pick Again 🔄</button>
+</div>
 
-  <!-- Final Page -->
-  <div id="final-page">
-    <h2>Here’s your chosen date, sayang! 💖</h2>
-    <p id="final-date"></p>
-  </div>
+<div id="final-page" class="container hidden">
+  <h1>Here's your chosen date, sayang! 💖</h1>
+  <p id="final-date"></p>
+  <button class="pick-again" onclick="pickAgainFinal()">Pick Again 🔄</button>
+</div>
 
-  <canvas id="confetti"></canvas>
+<canvas id="confetti"></canvas>
 
-  <script>
-    let chosenDate = "";
-    const canvas = document.getElementById("confetti");
-    const ctx = canvas.getContext("2d");
-    let confettiPieces = [];
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+let chosenDate = "";
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let confettiInterval;
 
-    function showOptions(type) {
-      document.querySelectorAll('.date-option').forEach(el => el.style.display = "none");
-      document.getElementById(type).style.display = "block";
-      document.getElementById("result").innerText = "";
-      document.getElementById("telegramBtn").style.display = "none";
-      document.getElementById("pickAgainBtn").style.display = "none";
-      document.getElementById("final-page").style.display = "none";
-    }
+function showOptions(type){
+  document.querySelectorAll('#main-page > div').forEach(d=>d.classList.add('hidden'));
+  document.getElementById(type).classList.remove('hidden');
+  document.getElementById("result").innerText = "";
+  document.getElementById("telegramBtn").classList.add("hidden");
+  document.getElementById("pickAgainBtn").classList.add("hidden");
+}
 
-    function chooseDate(date) {
-      chosenDate = date;
-      document.getElementById("result").innerText = "You picked: " + date;
-      document.getElementById("telegramBtn").style.display = "inline-block";
-      document.getElementById("pickAgainBtn").style.display = "inline-block";
-    }
+function chooseDate(date){
+  chosenDate = date;
+  document.getElementById("result").innerText = "You picked: " + date;
+  document.getElementById("telegramBtn").classList.remove("hidden");
+  document.getElementById("pickAgainBtn").classList.remove("hidden");
+}
 
-    function confirmTelegram() {
-      let message = encodeURIComponent("Hi Izzati 💕, I choose this date: " + chosenDate + "!");
-      window.open("https://t.me/nrztiii?text=" + message, "_blank");
-      document.getElementById("final-date").innerText = chosenDate;
-      document.getElementById("final-page").style.display = "block";
-      startConfetti();
-    }
+function confirmTelegram(){
+  const message = encodeURIComponent(`Hi Izzati 💕, I choose this date: ${chosenDate}!`);
+  window.open(`https://t.me/nrztiii?text=${message}`, "_blank");
 
-    function resetChoices() {
-      document.querySelectorAll('.date-option').forEach(el => el.style.display = "none");
-      document.getElementById("result").innerText = "";
-      document.getElementById("telegramBtn").style.display = "none";
-      document.getElementById("pickAgainBtn").style.display = "none";
-      document.getElementById("final-page").style.display = "none";
-    }
+  // Hide main page, show final page
+  document.getElementById("main-page").classList.add("hidden");
+  document.getElementById("final-page").classList.remove("hidden");
+  document.getElementById("final-date").innerText = chosenDate;
 
-    // Confetti setup
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    function randomColor() {
-      const colors = ["#ff0000", "#ff7f00", "#ffff00", "#00ff00", "#0000ff", "#4b0082", "#8f00ff"];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-    function createConfetti() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        r: Math.random() * 6 + 4,
-        d: Math.random() * 100,
-        color: randomColor(),
-        tilt: Math.random() * 10 - 10,
-        tiltAngleIncremental: Math.random() * 0.07 + 0.05,
-        tiltAngle: 0
-      };
-    }
-    function drawConfetti(p) {
-      ctx.beginPath();
-      ctx.lineWidth = p.r / 2;
-      ctx.strokeStyle = p.color;
-      ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
-      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
-      ctx.stroke();
-    }
-    function updateConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confettiPieces.forEach((p, i) => {
-        p.tiltAngle += p.tiltAngleIncremental;
-        p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
-        p.x += Math.sin(p.d);
-        p.tilt = Math.sin(p.tiltAngle - i / 3) * 15;
-        if (p.y > canvas.height) {
-          confettiPieces[i] = createConfetti();
-          p.y = -10;
-        }
-        drawConfetti(p);
-      });
-    }
-    function startConfetti() {
-      confettiPieces = Array.from({length: 150}, createConfetti);
-      setInterval(updateConfetti, 20);
-    }
-  </script>
+  startConfetti();
+}
+
+function pickAgainMain(){
+  document.querySelectorAll('#main-page > div').forEach(d=>d.classList.add('hidden'));
+  document.getElementById("outdoorsy").classList.add("hidden");
+  document.getElementById("romantic").classList.add("hidden");
+  document.getElementById("cozy").classList.add("hidden");
+  document.getElementById("result").innerText = "";
+  document.getElementById("telegramBtn").classList.add("hidden");
+  document.getElementById("pickAgainBtn").classList.add("hidden");
+  document.getElementById("main-page").classList.remove("hidden");
+  stopConfetti();
+}
+
+function pickAgainFinal(){
+  document.getElementById("final-page").classList.add("hidden");
+  document.getElementById("main-page").classList.remove("hidden");
+  stopConfetti();
+}
+
+// Confetti functions
+function startConfetti(){
+  confettiInterval = setInterval(()=> {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: {x:0},
+      colors: ['#ff0000','#ff7f00','#ffff00','#00ff00','#0000ff','#4b0082','#8f00ff']
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: {x:1},
+      colors: ['#ff0000','#ff7f00','#ffff00','#00ff00','#0000ff','#4b0082','#8f00ff']
+    });
+  }, 200);
+}
+
+function stopConfetti(){
+  clearInterval(confettiInterval);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+</script>
 </body>
 </html>
