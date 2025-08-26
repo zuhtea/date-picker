@@ -1,70 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Date Picker 💕</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #ffd6e0, #ffe9b5);
-      text-align: center;
-      padding: 30px;
-      color: #333;
-    }
-    h1 { font-size: 2rem; margin-bottom: 10px; }
-    .btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 15px 25px;
-      border-radius: 12px;
-      background: #fff;
-      border: 2px solid #ff6b81;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #ff6b81;
-      color: #fff;
-    }
-    .hidden { display: none; }
-    .card {
-      background: #fff;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 16px;
-      max-width: 500px;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
-    }
-  </style>
+h1{font-size:clamp(24px,5vw,34px); margin: 0 0 8px}
+p.lead{margin: 0 0 20px}
+.wrap{max-width:720px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:#fff;border:2px solid var(--pink);border-radius:16px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.12)}
+.emoji{font-size:28px}
+.hidden{display:none}
+.result{background:#fff;border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.btn{display:inline-block;margin:8px 6px;padding:12px 18px;border-radius:12px;border:2px solid var(--pink);background:#fff;font-weight:600;text-decoration:none;color:#333}
+.btn:hover{background:var(--pink);color:#fff}
+footer{opacity:.65;margin-top:24px;font-size:12px}
+</style>
 </head>
 <body>
-  <h1>💖 Hey love, pick our date this weekend 💖</h1>
-  <p>What are you in the mood for?</p>
+<div class="wrap">
+<h1>Hey love, pick our date this weekend 💕</h1>
+<p class="lead">What are you in the mood for?</p>
 
-  <div id="choices">
-    <button class="btn" onclick="pickCategory('outdoorsy')">🌿 Outdoorsy</button>
-    <button class="btn" onclick="pickCategory('romantic')">💌 Fun & Romantic</button>
-    <button class="btn" onclick="pickCategory('chill')">☕ Chill & Cozy</button>
-  </div>
 
-  <div id="result" class="hidden card"></div>
+<div id="choices" class="grid">
+<div class="card" onclick="pick('outdoorsy')"><div class="emoji">🌿</div><div>Outdoorsy</div></div>
+<div class="card" onclick="pick('romantic')"><div class="emoji">💌</div><div>Fun & Romantic</div></div>
+<div class="card" onclick="pick('chill')"><div class="emoji">☕</div><div>Chill & Cozy</div></div>
+</div>
 
-  <script>
-    function pickCategory(choice) {
-      let text = "";
-      if (choice === "outdoorsy") {
-        text = "🌿 Outdoorsy Date Plan 🌿<br><br>✨ Morning hike at MacRitchie Reservoir<br>🍲 Lunch at a halal café nearby<br>🍦 End with ice cream at Udders";
-      } else if (choice === "romantic") {
-        text = "💌 Fun & Romantic Date Plan 💌<br><br>✨ Stroll at Gardens by the Bay<br>🍽️ Dinner at a halal rooftop restaurant<br>🍰 Sweet ending with cake at Fluff Bakery";
-      } else if (choice === "chill") {
-        text = "☕ Chill & Cozy Date Plan ☕<br><br>✨ Board games or clay painting<br>🍔 Dinner at a halal burger joint<br>🍩 Donuts & hot chocolate for dessert";
-      }
-      document.getElementById("choices").classList.add("hidden");
-      document.getElementById("result").innerHTML = text + "<br><br><button class='btn' onclick='location.reload()'>🔄 Pick Again</button>";
-      document.getElementById("result").classList.remove("hidden");
-    }
-  </script>
+
+<div id="result" class="hidden result"></div>
+
+
+<footer>Made with ❤️ by Izzati</footer>
+</div>
+
+
+<script>
+function renderPlan(title, lines){
+const html = `
+<h2 style="margin:4px 0 10px">${title}</h2>
+<div style="line-height:1.7">${lines.map(l=>"• "+l).join("<br>")}</div>
+<div style="margin-top:14px">
+<a class="btn" href="#" onclick="location.reload()">🔄 Pick Again</a>
+</div>
+`;
+const res = document.getElementById('result');
+res.innerHTML = html;
+document.getElementById('choices').classList.add('hidden');
+res.classList.remove('hidden');
+}
+
+
+function pick(kind){
+if(kind==='outdoorsy'){
+renderPlan('🌿 Outdoorsy Date Plan', [
+'Morning walk at MacRitchie / Rail Corridor',
+'Halal lunch nearby (your fave spot!)',
+'Sweet ending: ice cream or waffles'
+]);
+}
+if(kind==='romantic'){
+renderPlan('💌 Fun & Romantic Date Plan', [
+'Golden‑hour stroll at Gardens by the Bay',
+'Halal dinner (rooftop or cosy cafe)',
+'Dessert date: cake & tea'
+]);
+}
+if(kind==='chill'){
+renderPlan('☕ Chill & Cozy Date Plan', [
+'Board games or clay painting session',
+'Halal burger or comfort food',
+'Donuts & hot chocolate nightcap'
+]);
+}
+}
+</script>
 </body>
 </html>
